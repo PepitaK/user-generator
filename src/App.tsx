@@ -159,7 +159,7 @@ function App() {
       )}
       <Pane marginTop={24}>
         <Button onClick={() => getUsers()} appearance="primary">
-          Generate random userdata
+          Generate random user data
         </Button>
         <Button marginX={16} onClick={() => copyJson()}>
           Copy
