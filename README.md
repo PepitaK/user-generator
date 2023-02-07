@@ -2,6 +2,8 @@
 
 Generate random user data to your next project!
 
+- 👉 See live: https://userdata-generator.web.app/
+
 ## Tools
 
 - [Evergreen](https://evergreen.segment.com/) UI library
@@ -12,3 +14,7 @@ Generate random user data to your next project!
 - `npm run start` to run the app in dev mode
 - `npm run build` to build the app in `build`-folder
 - `npm test` launches the test runner in the interactive watch mode
+
+### Firebase hosting
+
+- `firebase deploy --only hosting `
