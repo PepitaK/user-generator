@@ -73,7 +73,13 @@ const getPassword = () => {
 const getUsername = (firstName: string, lastName: string) => {
   return firstName.toLowerCase() + "." + lastName.toLowerCase();
 };
+
+const getIsOnline = () => {
+  const status = ["true", "false"];
+  return getRandomFromArray(status);
+};
 export {
+  getRandomFromArray,
   getAge,
   getRandomHexColor,
   getFirstName,
@@ -84,5 +90,5 @@ export {
   getCountry,
   getTel,
   getBirthday,
-  getRandomFromArray,
+  getIsOnline,
 };

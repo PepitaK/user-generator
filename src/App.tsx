@@ -6,6 +6,7 @@ import {
   getCountry,
   getEmail,
   getFirstName,
+  getIsOnline,
   getLastName,
   getPassword,
   getRandomFromArray,
@@ -24,11 +25,15 @@ import {
   toaster,
   Text,
 } from "evergreen-ui";
+
+import { Userdata } from "./types";
+
 function App() {
-  const [data, setData] = useState("[]");
+  const [data, setData] = useState<Userdata[]>([]);
   const [num, setNum] = useState(1);
   const [roles, setRoles] = useState(["subscriber", "admin", "editor"]);
   const [email, setEmail] = useState("placeholder.com");
+
   const allValues = React.useMemo(
     () => [
       "age",
@@ -42,6 +47,7 @@ function App() {
       "role",
       "password",
       "username",
+      "isOnline",
     ],
     []
   );
@@ -53,7 +59,7 @@ function App() {
   );
 
   const getUsers = () => {
-    let x = [];
+    let x = Array(0);
 
     for (let i = 0; i < num; i++) {
       let firstName = getFirstName();
@@ -76,16 +82,18 @@ function App() {
           username: getUsername(firstName, lastName),
         }),
         ...(values.includes("password") && { password: getPassword() }),
+        ...(values.includes("isOnline") && { isOnline: getIsOnline() }),
       };
 
       x.push(l);
     }
 
-    setData(JSON.stringify(x, null, 2));
+    setData(x);
   };
+  console.log(data);
 
   const copyJson = () => {
-    navigator.clipboard.writeText(data);
+    navigator.clipboard.writeText(JSON.stringify(data));
     toaster.notify("Generated JSON copied to your clipboard! 👍");
   };
 
@@ -119,7 +127,7 @@ function App() {
             setValues(values.filter((_, i) => i !== index));
           }}
           onAdd={(newValues) => {
-            if (newValues.some((val) => !values.includes(val))) {
+            if (newValues.some((val) => !allValues.includes(val))) {
               toaster.danger("Oops, you added an unsupported value!");
               return;
             }
@@ -149,12 +157,14 @@ function App() {
         </Pane>
       )}
       <Pane marginTop={24}>
-        <Button onClick={() => getUsers()}>Generate random userdata</Button>
+        <Button onClick={() => getUsers()} appearance="primary">
+          Generate random userdata
+        </Button>
         <Button marginX={16} onClick={() => copyJson()}>
           Copy
         </Button>
       </Pane>
-      <Highlight className="json">{data}</Highlight>
+      <Highlight className="json">{JSON.stringify(data, null, 2)}</Highlight>
     </div>
   );
 }
