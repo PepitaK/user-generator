@@ -113,6 +113,7 @@ function App() {
         label="How many objects?"
         placeholder="Text input placeholder..."
         defaultValue={num}
+        type="number"
         onChange={(e: ChangeEvent<HTMLInputElement>) =>
           setNum(parseInt(e.target.value))
         }
